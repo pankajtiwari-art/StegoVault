@@ -3,7 +3,7 @@ StegoVault: An Advanced Browser-Based Steganography Tool
 
 1. Introduction and Origin
 
-StegoVault is a sophisticated, self-contained web application designed for secure, offline steganography operations. Unlike traditional steganography tools that require software installation, this tool operates entirely within a web browser using modern JavaScript APIs. The concept originated from combining several security paradigms:  (paradaem)
+StegoVault is a sophisticated, self-contained web application designed for secure, offline steganography operations. Unlike traditional steganography tools that require software installation, this tool operates entirely within a web browser using modern JavaScript APIs. The concept originated from combining several security paradigms:
 
 1. Military-grade steganography (hiding data within plain sight)
 2. Plausible deniability systems (inspired by VeraCrypt and similar tools)
