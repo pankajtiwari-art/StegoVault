@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StegoVault | Black Ops Edition</title>
     <meta name="description" content="Advanced Offline Steganography Tool with Integrity Check and TTL.">
-        <link rel="stylesheet" href="style.css">
-  </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
     <div id="offline-screen" class="system-offline">
@@ -47,7 +47,7 @@
         <main>
             <header>
                 <div class="page-title" id="page-title">Encryption Protocol</div>
-                    <div class="sys-status">
+                <div class="sys-status">
                     <div class="status-dot" id="sys-dot"></div>
                     <span id="sys-text">SYSTEM SECURE</span>
                     <span class="panic-btn" onclick="App.Actions.panic()">PANIC</span>
@@ -198,10 +198,10 @@
                 </div>
             </div>
 
-                       <div id="view-about" class="view-port">
+            <div id="view-about" class="view-port">
                 <div class="panel">
                     <div class="panel-head">SYSTEM ARCHITECTURE & SECURITY SPECS</div>
-                                        <div class="specs-grid">
+                    <div class="specs-grid">
                         <div class="spec-card">
                             <h4>🛡️ AES-256-GCM</h4>
                             <p>Military-grade authenticated encryption. Ciphertext is secured using a randomly generated 12-byte Initialization Vector (IV).</p>
@@ -230,13 +230,15 @@
                             <h4>🔥 Single-Use Detonation</h4>
                             <p>Payloads can be armed with unique UUIDs. Once decrypted, the signature is locally logged, and subsequent access attempts are permanently denied.</p>
                         </div>
-                                                <div class="spec-card">
+                        <div class="spec-card">
                             <h4>💀 Panic Meltdown</h4>
                             <p>A hardware-level interrupt (Double-Tap ESC) triggers an immediate memory wipe, overwriting inputs and scrambling the UI before halting the system.</p>
                         </div>
                     </div>
                 </div>
-            </div> <div id="stego-bot-container">
+            </div>
+
+            <div id="stego-bot-container">
                 <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
                     🤖 <span class="bot-badge"></span>
                 </div>
@@ -257,7 +259,7 @@
 
         </main>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
