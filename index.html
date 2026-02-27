@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StegoVault | Black Ops Edition</title>
     <meta name="description" content="Advanced Offline Steganography Tool with Integrity Check and TTL.">
-    <link rel="stylesheet" href="style.css">
-</head>
+        <link rel="stylesheet" href="style.css">
+  </head>
 <body>
 
     <div id="offline-screen" class="system-offline">
@@ -47,7 +47,7 @@
         <main>
             <header>
                 <div class="page-title" id="page-title">Encryption Protocol</div>
-                <div class="sys-status">
+                    <div class="sys-status">
                     <div class="status-dot" id="sys-dot"></div>
                     <span id="sys-text">SYSTEM SECURE</span>
                     <span class="panic-btn" onclick="App.Actions.panic()">PANIC</span>
@@ -198,10 +198,10 @@
                 </div>
             </div>
 
-            <div id="view-about" class="view-port">
+                       <div id="view-about" class="view-port">
                 <div class="panel">
                     <div class="panel-head">SYSTEM ARCHITECTURE & SECURITY SPECS</div>
-                    <div class="specs-grid">
+                                        <div class="specs-grid">
                         <div class="spec-card">
                             <h4>🛡️ AES-256-GCM</h4>
                             <p>Military-grade authenticated encryption. Ciphertext is secured using a randomly generated 12-byte Initialization Vector (IV).</p>
@@ -236,30 +236,29 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="stego-bot-container">
-                <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
-                    🤖 <span class="bot-badge"></span>
-                </div>
-                <div id="stego-bot-window">
-                    <div class="bot-header">
-                        <span>Terminal Assistant [V.1]</span>
-                        <span style="cursor:pointer; color: var(--neon-red);" onclick="App.Bot.toggle()">✖</span>
+                <div id="stego-bot-container">
+                    <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
+                        🤖 <span class="bot-badge"></span>
                     </div>
-                    <div class="bot-chat" id="bot-chat">
-                        <div class="bot-msg bot">System ready. Ask me about StegoVault's encryption, decryption, security, history, or its creator.</div>
-                    </div>
-                    <div class="bot-input-area">
-                        <input type="text" id="bot-input" placeholder="Enter query..." onkeypress="App.Bot.handleEnter(event)">
-                        <button onclick="App.Bot.send()">↵</button>
+                    <div id="stego-bot-window">
+                        <div class="bot-header">
+                            <span>Terminal Assistant [V.1]</span>
+                            <span style="cursor:pointer; color: var(--neon-red);" onclick="App.Bot.toggle()">✖</span>
+                        </div>
+                        <div class="bot-chat" id="bot-chat">
+                            <div class="bot-msg bot">System ready. Ask me about StegoVault's encryption, decryption, security, history, or its creator.</div>
+                        </div>
+                        <div class="bot-input-area">
+                            <input type="text" id="bot-input" placeholder="Enter query..." onkeypress="App.Bot.handleEnter(event)">
+                            <button onclick="App.Bot.send()">↵</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </main>
     </div>
-    
-    <script src="script.js"></script>
-</body>
+      <script src="script.js"></script>
+    </body>
 </html>
