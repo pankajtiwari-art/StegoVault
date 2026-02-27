@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StegoVault | Black Ops Edition</title>
+    <meta name="description" content="Advanced Offline Steganography Tool with Integrity Check and TTL.">
+        <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+
+    <div id="offline-screen" class="system-offline">
+        <div style="font-size: 64px; margin-bottom: 20px;">☠️</div>
+        <div style="letter-spacing: 5px;">FATAL ERROR: KERNEL PANIC</div>
+        <div style="font-size: 14px; color: #666; margin-top: 15px;">ALL DATA SECURELY INCINERATED.</div>
+        <div style="font-size: 14px; color: #666; margin-top: 5px; animation: pulse 1s infinite;">SYSTEM HALTED.</div>
+    </div>
+
+    <canvas id="matrix-canvas"></canvas>
+    
+    <div id="app-frame">
+        <aside>
+            <div class="brand-box">
+                <div class="brand-title" id="logo-container" style="cursor: pointer; user-select: none;">
+                    <svg width="24" height="24" fill="var(--neon-blue)" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    <span id="logo-text">STEGO<span style="color:var(--neon-blue)">VAULT</span></span>
+                </div>
+                <div class="brand-ver">v6.0 BLACK OPS</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-btn active" onclick="App.router('encode')" id="nav-encode">
+                    <span>🔒</span> ENCRYPTION
+                </li>
+                <li class="nav-btn" onclick="App.router('decode')" id="nav-decode">
+                    <span>🔓</span> DECRYPTION
+                </li>
+                <li class="nav-btn" onclick="App.router('logs')" id="nav-logs">
+                    <span>📟</span> TERMINAL
+                </li>
+                <li class="nav-btn" onclick="App.router('about')" id="nav-about">
+                    <span>👁️</span> INTEL
+                </li>
+            </ul>
+        </aside>
+
+        <main>
+            <header>
+                <div class="page-title" id="page-title">Encryption Protocol</div>
+                    <div class="sys-status">
+                    <div class="status-dot" id="sys-dot"></div>
+                    <span id="sys-text">SYSTEM SECURE</span>
+                    <span class="panic-btn" onclick="App.Actions.panic()">PANIC</span>
+                </div>
+            </header>
+
+            <div id="view-encode" class="view-port active">
+                <div class="panel">
+                    <div class="panel-head">
+                        <span>Phase 1: Cover Selection</span>
+                        <select id="tpl-select" onchange="App.Actions.loadTemplate()" style="width:auto; padding:2px; height:20px; font-size:10px;">
+                            <option value="">-- Load Template --</option>
+                            <option value="meet">Corporate Meeting</option>
+                            <option value="sys">System Log</option>
+                            <option value="chat">Casual Chat</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="enc-cover" placeholder="Paste innocent public text here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <span>Phase 2: Payload Configuration</span>
+                        <span id="decoy-toggle-btn" style="cursor:pointer; color:var(--neon-blue); transition: 0.3s;" onclick="App.Actions.toggleDecoy()">[ + DUAL LAYER MODE ]</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label style="color:var(--neon-blue)">REAL INTELLIGENCE (SECRET)</label>
+                        <textarea id="enc-secret" rows="3" placeholder="Top secret data..."></textarea>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                        <div class="input-group">
+                            <label>ENCRYPTION KEY</label>
+                            <input type="password" id="enc-pass" oninput="App.Utils.checkStrength(this.value)">
+                            <div class="strength-meter">
+                                <div class="strength-seg" id="seg-1"></div>
+                                <div class="strength-seg" id="seg-2"></div>
+                                <div class="strength-seg" id="seg-3"></div>
+                                <div class="strength-seg" id="seg-4"></div>
+                            </div>
+                            <div class="strength-text" id="str-text">Strength: None</div>
+                        </div>
+                        <div class="input-group">
+                            <label>AUTO-BURN TIMER (TTL)</label>
+                            <input type="number" id="enc-ttl" placeholder="Seconds (0 = Never)">
+                        </div>
+                    </div>
+
+                    <div class="burn-wrapper">
+                        <input type="checkbox" id="enc-burn-once" class="burn-checkbox">
+                        <label for="enc-burn-once" class="burn-label">
+                            <span class="burn-box"></span>
+                            <span class="burn-text" id="burn-text-span">BURN AFTER READING</span>
+                        </label>
+                    </div>
+
+                    <div id="decoy-box" class="decoy-box">
+                        <div class="panel-head" style="color:var(--neon-red)">DECOY LAYER (DURESS)</div>
+                        <div class="input-group">
+                            <label>FAKE MESSAGE</label>
+                            <textarea id="decoy-secret" rows="2" placeholder="Harmless data (e.g. Grocery list)..."></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>FAKE PASSWORD</label>
+                            <input type="password" id="decoy-pass">
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                        <button class="btn btn-primary" onclick="App.Actions.encrypt()">
+                            <span>⚡ ENCRYPT & EMBED</span>
+                        </button>
+                        <button class="btn" onclick="App.Actions.clearEnc()">RESET</button>
+                    </div>
+
+                    <div id="enc-success" class="status-indicator">
+                        <div class="status-icon"></div>
+                        <span>Payload successfully encrypted and copied to clipboard. Steganographic embedding complete.</span>
+                    </div>
+
+                    <div id="data-vis" class="data-vis">
+                        <div class="panel-head">Payload Analysis</div>
+                        <div class="vis-labels">
+                            <span>Cover Text</span>
+                            <span>Secret Data</span>
+                            <span>Steganography</span>
+                        </div>
+                        <div class="vis-bar">
+                            <div class="vis-fill" id="vis-cover"></div>
+                        </div>
+                        <div class="vis-labels">
+                            <span id="cover-size">0 chars</span>
+                            <span id="secret-size">0 chars</span>
+                            <span id="stego-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-decode" class="view-port">
+                <div class="panel">
+                    <div class="panel-head">Extraction Protocol</div>
+                    <div class="input-group">
+                        <label>STEGANOGRAPHIC ARTIFACT</label>
+                        <textarea id="dec-input" placeholder="Paste the text containing hidden data..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>DECRYPTION KEY</label>
+                        <input type="password" id="dec-pass" placeholder="Enter Real or Decoy key">
+                    </div>
+                    <div style="margin-top:20px;">
+                        <button class="btn btn-primary" onclick="App.Actions.decrypt()">
+                            <span>🔓 UNLOCK & DECRYPT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel" id="res-panel" style="display:none; border-color:var(--neon-green);">
+                    <div class="panel-head">
+                        <span style="color:var(--neon-green)">DECRYPTED PAYLOAD</span>
+                        <span id="burn-display" style="color:var(--neon-red); font-weight:bold;"></span>
+                    </div>
+                    <textarea id="dec-result" readonly style="color:var(--neon-blue); background:#050505; border:none; font-family: var(--font-mono);"></textarea>
+                    <div id="integrity-badge" style="margin-top:10px; font-size:10px; color:var(--neon-green); display:none;">
+                        ✓ INTEGRITY CHECK PASSED (HMAC-SHA256)
+                    </div>
+                    <div id="layer-info" style="margin-top:10px; font-size:10px; color:var(--neon-amber); display:none;">
+                        ⚠️ DECOY LAYER ACCESSED
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-logs" class="view-port">
+                <div class="panel">
+                    <div class="panel-head">
+                        <span>System Audit Log</span>
+                        <span style="cursor:pointer" onclick="App.Logger.clear()">[ CLEAR ]</span>
+                    </div>
+                    <div id="terminal" class="terminal">
+                        <div class="log-line"><span class="log-ts">[BOOT]</span> <span class="l-info">StegoVault v6.0 Kernel Loaded.</span></div>
+                        <div class="log-line"><span class="log-ts">[SYS]</span> <span class="l-success">Matrix Background Initialized.</span></div>
+                        <div class="log-line"><span class="log-ts">[SYS]</span> <span class="l-success">Crypto Module (AES-GCM) Ready.</span></div>
+                        <div class="log-line"><span class="log-ts">[SYS]</span> <span class="l-success">Steganography Engine Online.</span></div>
+                    </div>
+                </div>
+            </div>
+
+                       <div id="view-about" class="view-port">
+                <div class="panel">
+                    <div class="panel-head">SYSTEM ARCHITECTURE & SECURITY SPECS</div>
+                                        <div class="specs-grid">
+                        <div class="spec-card">
+                            <h4>🛡️ AES-256-GCM</h4>
+                            <p>Military-grade authenticated encryption. Ciphertext is secured using a randomly generated 12-byte Initialization Vector (IV).</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>🔑 PBKDF2 Key Derivation</h4>
+                            <p>Cryptographic keys are fortified using 100,000 iterations of PBKDF2 with a 16-byte random salt to neutralize brute-force attacks.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>👻 Zero-Width Steganography</h4>
+                            <p>Encrypted payloads are transcoded into invisible binary markers (U+200B/U+200C) and injected seamlessly into innocent cover text.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>📦 GZIP Stream Compression</h4>
+                            <p>Raw intelligence is losslessly compressed via browser streams before encryption, maximizing the steganographic embedding ratio.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>⚠️ Duress Protocol</h4>
+                            <p>Dual-layer architecture. A decoy password decrypts a harmless secondary payload, shielding the primary secret under interrogation.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>🔐 HMAC-SHA256 Integrity</h4>
+                            <p>Automated cryptographic hashing checks the data upon extraction. It instantly flags if the text was truncated or tampered with by social media platforms.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>🔥 Single-Use Detonation</h4>
+                            <p>Payloads can be armed with unique UUIDs. Once decrypted, the signature is locally logged, and subsequent access attempts are permanently denied.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h4>💀 Panic Meltdown</h4>
+                            <p>A hardware-level interrupt (Double-Tap ESC) triggers an immediate memory wipe, overwriting inputs and scrambling the UI before halting the system.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stego-bot-container">
+                    <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
+                        🤖 <span class="bot-badge"></span>
+                    </div>
+                    <div id="stego-bot-window">
+                        <div class="bot-header">
+                            <span>Terminal Assistant [V.1]</span>
+                            <span style="cursor:pointer; color: var(--neon-red);" onclick="App.Bot.toggle()">✖</span>
+                        </div>
+                        <div class="bot-chat" id="bot-chat">
+                            <div class="bot-msg bot">System ready. Ask me about StegoVault's encryption, decryption, security, history, or its creator.</div>
+                        </div>
+                        <div class="bot-input-area">
+                            <input type="text" id="bot-input" placeholder="Enter query..." onkeypress="App.Bot.handleEnter(event)">
+                            <button onclick="App.Bot.send()">↵</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+      <script src="script.js"></script>
+    </body>
+</html>
