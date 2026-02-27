@@ -230,34 +230,34 @@
                             <h4>🔥 Single-Use Detonation</h4>
                             <p>Payloads can be armed with unique UUIDs. Once decrypted, the signature is locally logged, and subsequent access attempts are permanently denied.</p>
                         </div>
-                        <div class="spec-card">
+                                                <div class="spec-card">
                             <h4>💀 Panic Meltdown</h4>
                             <p>A hardware-level interrupt (Double-Tap ESC) triggers an immediate memory wipe, overwriting inputs and scrambling the UI before halting the system.</p>
                         </div>
                     </div>
                 </div>
-
-                                </div> <div id="stego-bot-container">
-                    <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
-                        🤖 <span class="bot-badge"></span>
+            </div> <div id="stego-bot-container">
+                <div id="stego-bot-toggle" onclick="App.Bot.toggle()">
+                    🤖 <span class="bot-badge"></span>
+                </div>
+                <div id="stego-bot-window">
+                    <div class="bot-header">
+                        <span>Terminal Assistant [V.1]</span>
+                        <span style="cursor:pointer; color: var(--neon-red);" onclick="App.Bot.toggle()">✖</span>
                     </div>
-                    <div id="stego-bot-window">
-                        <div class="bot-header">
-                            <span>Terminal Assistant [V.1]</span>
-                            <span style="cursor:pointer; color: var(--neon-red);" onclick="App.Bot.toggle()">✖</span>
-                        </div>
-                        <div class="bot-chat" id="bot-chat">
-                            <div class="bot-msg bot">System ready. Ask me about StegoVault's encryption, decryption, security, history, or its creator.</div>
-                        </div>
-                        <div class="bot-input-area">
-                            <input type="text" id="bot-input" placeholder="Enter query..." onkeypress="App.Bot.handleEnter(event)">
-                            <button onclick="App.Bot.send()">↵</button>
-                        </div>
+                    <div class="bot-chat" id="bot-chat">
+                        <div class="bot-msg bot">System ready. Ask me about StegoVault's encryption, decryption, security, history, or its creator.</div>
+                    </div>
+                    <div class="bot-input-area">
+                        <input type="text" id="bot-input" placeholder="Enter query..." onkeypress="App.Bot.handleEnter(event)">
+                        <button onclick="App.Bot.send()">↵</button>
                     </div>
                 </div>
+            </div>
 
         </main>
     </div>
-      <script src="script.js"></script>
-    </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
