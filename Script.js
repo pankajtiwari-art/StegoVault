@@ -1,4 +1,3 @@
-<script>
 /**
  * STEGOVAULT v6.0 ENGINE
  * Includes: Crypto, Stego, UI, Utils, Logger
@@ -929,5 +928,3 @@ const App = (function() {
 
 // Initialize on load
 window.onload = App.init;
-
-</script>
