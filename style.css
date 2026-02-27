@@ -31,16 +31,16 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; user-select: none; }
         
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            font-size: 14px;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    height: 100dvh; 
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
         /* Selection styling for copy-paste */
         textarea, input { user-select: text !important; }
@@ -59,10 +59,13 @@
 
         /* --- 4. LAYOUT --- */
         #app-frame {
-            position: relative; z-index: 2;
-            display: flex; height: 100%; width: 100%;
-            border-top: 2px solid var(--neon-blue);
-        }
+    position: relative; z-index: 2;
+    display: flex; 
+    flex: 1;            /* Naya add kiya */
+    min-height: 0;      /* Naya add kiya */
+    width: 100%;
+    border-top: 2px solid var(--neon-blue);
+}
 
         /* Sidebar */
         aside {
@@ -115,7 +118,13 @@
         }
 
         /* Main Content */
-        main { flex: 1; display: flex; flex-direction: column; position: relative; }
+        main { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative; 
+    min-height: 0;      /* Naya add kiya */
+}
 
         header {
             height: 60px; border-bottom: 1px solid #222;
@@ -605,7 +614,13 @@
         .spec-card p { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
 
         /* --- FLOATING BOT UI --- */
-        #stego-bot-container { position: absolute; bottom: 30px; right: 30px; z-index: 100; font-family: var(--font-mono); }
+        #stego-bot-container { 
+    position: absolute; 
+    bottom: 30px; 
+    right: 30px; 
+    z-index: 100; 
+    font-family: var(--font-mono); 
+}
         #stego-bot-toggle { background: #111; border: 1px solid var(--neon-blue); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 20px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); transition: all 0.3s; position: relative; }
         #stego-bot-toggle:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); border-color: var(--neon-green); }
         .bot-badge { position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background: var(--neon-green); border-radius: 50%; animation: pulse 2s infinite; }
