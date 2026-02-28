@@ -699,11 +699,11 @@ const App = (function() {
                 res = "System is online. All cryptographic modules are loaded. Try executing /panic or /disable, or ask me a question.";
             }
             // 2. Creator
-            else if(match(['creator', 'who made', 'who created', 'developer', 'author', 'pankaj'])) {
+            else if(match(['creator', 'who made', 'who created', 'developer', 'author', 'pankaj', 'create', 'birth'])) {
                 res = "StegoVault was engineered by Pankaj Tiwari. He is a developer experienced in creating games and websites, and the author of 'Control Psychology: The Illusionary Game'.";
             }
             // 3. History
-            else if(match(['history', 'what is this', 'about stegovault', 'purpose'])) {
+            else if(match(['history', 'what is this', 'about stegovault', 'purpose', 'why are you'])) {
                 res = "StegoVault Black Ops Edition is a tactical offline steganography tool. It hides AES-256 encrypted payloads inside invisible zero-width characters.";
             }
             // 4. Encrypt
@@ -734,6 +734,7 @@ const App = (function() {
             else if(match(['help', 'commands', 'what can you do', 'menu'])) {
                 res = "Commands: <br><strong>/panic</strong> - Trigger Meltdown<br><strong>/disable</strong> - Wipe all instances<br><strong>/clear</strong> - Clean chat<br><br>Or ask me general questions about the system.";
             }
+            // more here...
 
             Bot.appendMsg(res, 'bot');
         }
