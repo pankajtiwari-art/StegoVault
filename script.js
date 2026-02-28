@@ -105,7 +105,7 @@ const App = (function() {
             }, 5000);
         },
 
-        // 👇 YAHAN AB YEH NAYA FUNCTION EK ALAG AUR SAHI JAGAH PAR HAI
+        //Lockdown UI
         updateLockdownUI: (isLocked) => {
             const dot = document.getElementById('sys-dot');
             const txt = document.getElementById('sys-text');
@@ -342,7 +342,7 @@ const App = (function() {
             try {
                 const salt = crypto.getRandomValues(new Uint8Array(CFG.saltLen));
                 
-                // Naya: Checkbox status aur Unique ID generate karo
+                // Checkbox status aur Unique ID generate karo
                 const isBurnOnce = document.getElementById('enc-burn-once').checked;
                 const payloadId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
 
@@ -352,8 +352,8 @@ const App = (function() {
                     c: Date.now(), 
                     t: parseInt(ttl) || 0,
                     v: '6.0',
-                    id: payloadId,    // Naya: Unique Payload ID
-                    b: isBurnOnce     // Naya: Single-use flag
+                    id: payloadId,    // Unique Payload ID
+                    b: isBurnOnce     // Single-use flag
                 });
 
                 const realBlob = await Crypto.encrypt(realPayload, pass, salt);
@@ -425,7 +425,7 @@ const App = (function() {
             layerInfo.style.display = 'none';
             
             Logger.log("Scanning for steganographic data...", 'info');
-            // --- NAYA KIL-SWITCH CHECK ---
+            // --- KIL-SWITCH CHECK ---
             if (localStorage.getItem('stego_global_lockdown') === 'ACTIVE') {
                 resPanel.style.display = 'block';
                 resField.value = "⛔ SYSTEM LOCKDOWN ACTIVE.\n\nDecryption engine has been disabled via terminal command. All payloads are treated as incinerated on this device.";
@@ -433,7 +433,7 @@ const App = (function() {
                 intBadge.style.display = 'none';
                 document.getElementById('burn-display').innerText = "[ ENGINE OFFLINE ]";
                 Logger.log("Intrusion blocked. Decryption engine is under Global Lockdown.", 'error');
-                return; // Code aage nahi jayega
+                return; 
             }
 
             try {
@@ -468,7 +468,7 @@ const App = (function() {
                         failedAttempts = 0; // Success pe reset
                         Logger.log("Decoy payload accessed", 'warn');
                     } catch(e2) { 
-                        // --- NAYA BRUTE-FORCE LOGIC ---
+                        // --- BRUTE-FORCE LOGIC ---
                         failedAttempts++;
                         if (failedAttempts >= 3) {
                             localStorage.setItem('stego_global_lockdown', 'ACTIVE');
@@ -484,7 +484,7 @@ const App = (function() {
                     layerInfo.style.display = 'block';
                 }
 
-                // -- NAYA CODE: SINGLE-READ BURN CHECK --
+                // -- SINGLE-READ BURN CHECK --
                 if (data.b && data.id) {
                     const burnKey = 'stego_burn_' + data.id;
                     
@@ -496,7 +496,7 @@ const App = (function() {
                         intBadge.style.display = 'none';
                         document.getElementById('burn-display').innerText = "[ COMPROMISED ]";
                         Logger.log("Intrusion Attempt: Tried to access a consumed single-use payload.", 'error');
-                        return; // Yahin rok do, aage mat jao
+                        return; 
                     } else {
                         // Agar first time hai, toh padhne do aur memory mein mark kar do
                         localStorage.setItem(burnKey, 'true');
@@ -505,7 +505,6 @@ const App = (function() {
                         Logger.log("Single-use payload consumed. ID permanently logged as BURNED.", 'warn');
                     }
                 }
-                // -- NAYA CODE KHATAM --
 
                 // 5. TTL Check
 
@@ -733,7 +732,7 @@ const App = (function() {
 
     // --- INIT ---
     function init() {
-        // 👇 YAHAN NAYA CODE ADD KAREIN: Boot hote hi lockdown check karega
+        // Boot hote hi lockdown check karega
         if (localStorage.getItem('stego_global_lockdown') === 'ACTIVE') {
             Utils.updateLockdownUI(true);
         }
