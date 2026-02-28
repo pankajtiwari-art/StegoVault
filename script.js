@@ -227,7 +227,17 @@ const App = (function() {
                 Utils.updateVisualization(templates[v], document.getElementById('enc-secret').value);
             }
         },
-        
+        pasteText: async () => {
+            try {
+                // OS clipboard se raw text padhne ki koshish karega
+                const text = await navigator.clipboard.readText();
+                document.getElementById('dec-input').value = text;
+                Logger.log("Raw text pasted securely from OS clipboard.", 'success');
+            } catch (err) {
+                // Agar browser permission na de (clipboard read karne ke liye prompt aayega)
+                Logger.log("Paste failed: Browser permission denied. Use long-press to paste.", 'error');
+            }
+        },
          toggleDecoy: () => {
             const decoyBox = document.getElementById('decoy-box');
             const toggleBtn = document.getElementById('decoy-toggle-btn');
