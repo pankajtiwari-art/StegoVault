@@ -154,9 +154,14 @@
                 <div class="panel">
                     <div class="panel-head">Extraction Protocol</div>
                     <div class="input-group">
-                        <label>STEGANOGRAPHIC ARTIFACT</label>
-                        <textarea id="dec-input" placeholder="Paste the text containing hidden data..."></textarea>
-                    </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                <label style="margin-bottom: 0;">STEGANOGRAPHIC ARTIFACT</label>
+                <span style="cursor:pointer; color:var(--neon-blue); font-size:10px; border: 1px solid var(--neon-blue); padding: 2px 6px; border-radius: 3px; transition: 0.3s;" onclick="App.Actions.pasteText()" onmouseover="this.style.background='var(--neon-blue)'; this.style.color='#000';" onmouseout="this.style.background='transparent'; this.style.color='var(--neon-blue)';">
+                [ PASTE RAW TEXT ]
+                </span>
+            </div>
+                <textarea id="dec-input" placeholder="Paste the text containing hidden data..."></textarea>
+        </div>
                     <div class="input-group">
                         <label>DECRYPTION KEY</label>
                         <input type="password" id="dec-pass" placeholder="Enter Real or Decoy key">
