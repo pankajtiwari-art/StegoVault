@@ -1,380 +1,265 @@
 # StegoVault
-StegoVault: An Advanced Browser-Based Steganography Tool
+### An Advanced Browser-Based Steganography Tool
 
-1. Introduction and Origin
+StegoVault is a self-contained browser application for performing secure steganography operations directly inside a web browser. Unlike traditional tools that require installation, StegoVault runs entirely on the client side using modern JavaScript APIs.
 
-StegoVault is a sophisticated, self-contained web application designed for secure, offline steganography operations. Unlike traditional steganography tools that require software installation, this tool operates entirely within a web browser using modern JavaScript APIs. The concept originated from combining several security paradigms:
+The project combines several security paradigms:
 
-1. Military-grade steganography (hiding data within plain sight)
-2. Plausible deniability systems (inspired by VeraCrypt and similar tools)
-3. Browser-based cryptography (using Web Crypto API)
-4. Zero-width character encoding (a modern text-based steganography method)
+- Military-style steganography (hiding data within plain sight)
+- Plausible deniability systems inspired by tools like VeraCrypt
+- Browser-based cryptography using the Web Crypto API
+- Zero-width character encoding for text-based steganography
 
-The tool represents evolution from earlier versions that focused primarily on image-based steganography to text-based methods that work across digital platforms including social media, messaging apps, and email.
+The tool evolved from earlier image-based steganography tools into a modern **text-based hidden messaging system** that works across social media, messaging platforms, and email.
 
-2. What is Steganography?
+---
 
-Steganography (from Greek steganos meaning "covered" and graphia meaning "writing") is the practice of concealing information within other non-secret data. Unlike cryptography (which makes data unreadable), steganography makes data invisible. This tool implements text steganography - hiding secret messages within ordinary-looking text.
+# Run Code
 
-3. Core Technical Architecture
+<details>
+<summary>Click to run the project</summary>
 
-3.1 Single-File Design
+https://pankajtiwari-art.github.io/StegoVault/
 
-The entire application exists in one HTML file containing:
+</details>
 
-· HTML structure (UI layout)
-· CSS styling (cyberpunk-themed interface)
-· JavaScript logic (all cryptographic and steganographic operations)
+---
 
-This design ensures:
+# What is Steganography?
 
-· No external dependencies
-· Complete offline functionality
-· Easy distribution and portability
-· No installation required
+Steganography comes from the Greek words **steganos** (covered) and **graphia** (writing).
 
-3.2 Key Technologies Used
+It is the practice of hiding information inside other data so that the existence of the hidden message is concealed.
 
-Technology Purpose Implementation
-Web Crypto API Encryption/decryption AES-GCM with PBKDF2 key derivation
-Zero-Width Characters Data hiding Unicode characters U+200B, U+200C
-Compression API Data optimization Gzip compression for payload
-Canvas API Visual effects Matrix-style background animation
-Clipboard API Data transfer Copying steganographic text
+Unlike cryptography, which makes data unreadable, steganography hides the fact that data exists at all.
 
-4. How It Works: Technical Breakdown
+StegoVault focuses on **text steganography**, embedding secret information inside ordinary-looking text.
 
-4.1 The Encryption Process
+---
 
-When you encrypt a message:
+# Core Technical Architecture
 
-```
-1. Input Collection:
-   - Cover text (innocent-looking text)
-   - Secret message (actual hidden data)
-   - Password (encryption key)
-   - Optional: Decoy message and password
-   - Optional: TTL (Time-To-Live) value
+## Single File Design
 
-2. Data Processing:
-   - Secret message → JSON string → Gzip compression
-   - Password → PBKDF2 key derivation (100,000 iterations)
-   - Encryption using AES-GCM (Galois/Counter Mode)
-   - Integrity hash calculated (SHA-256, first 8 bytes)
+The entire application exists inside a single HTML file that contains:
 
-3. Dual-Layer Packaging:
-   - Real payload encrypted with main password
-   - Decoy payload encrypted with decoy password (or random data)
-   - Both combined with length prefixes and salt
+- HTML structure (user interface)
+- CSS styling (cyberpunk themed interface)
+- JavaScript logic (cryptography and steganography engine)
 
-4. Steganographic Embedding:
-   - Binary data converted to zero-width characters
-   - Hidden between invisible markers (U+2060, U+200B, U+200C)
-   - Embedded within cover text
-   - Final text appears normal to human eyes
-```
+Benefits of this architecture:
 
-4.2 The Decryption Process
+- No external dependencies
+- Fully offline operation
+- Easy distribution
+- No installation required
 
-When you decrypt:
+---
 
-```
-1. Extraction:
-   - Parse input text for invisible markers
-   - Extract zero-width characters
-   - Convert back to binary data
+# Key Technologies Used
 
-2. Unpacking:
-   - Extract salt (16 bytes)
-   - Read length prefix (4 bytes)
-   - Separate real and decoy payloads
+| Technology | Purpose | Implementation |
+|-----------|--------|---------------|
+| Web Crypto API | Encryption & decryption | AES-GCM with PBKDF2 |
+| Zero-Width Characters | Hidden data encoding | Unicode characters |
+| Compression API | Data size optimization | Gzip compression |
+| Canvas API | Visual interface effects | Matrix-style animation |
+| Clipboard API | Text transfer | Copy hidden messages |
 
-3. Decryption Attempts:
-   - Try main password on real payload
-   - If fails, try decoy password on decoy payload
-   - Verify integrity checksum
+---
 
-4. Result Display:
-   - Hacker-style animated reveal
-   - TTL countdown display (if active)
-   - Integrity verification status
-```
+# How It Works
 
-4.3 The Steganography Method: Zero-Width Characters
+## Encryption Process
 
-The tool uses Unicode zero-width characters which are invisible when rendered:
+1. User inputs:
+   - Cover text
+   - Secret message
+   - Password
+   - Optional decoy message
+   - Optional TTL value
 
-· U+200B (Zero Width Space) = Binary 0
-· U+200C (Zero Width Non-Joiner) = Binary 1
-· U+2060 (Word Joiner) = Start/end markers
+2. Data processing pipeline
+   - Secret Message → JSON → Compression → Encryption → Binary Data
+3. Dual-layer packaging
+
+- Real payload encrypted with main password
+- Decoy payload encrypted with decoy password
+
+4. Steganographic embedding
+
+Binary data is converted into invisible Unicode characters and embedded inside the cover text.
+
+---
+
+## Decryption Process
+
+1. Extract hidden characters from the text
+2. Convert characters back into binary data
+3. Attempt password-based decryption
+4. Verify integrity
+5. Display hidden message
+
+---
+
+# Steganography Method
+
+StegoVault uses invisible Unicode characters:
+
+| Character | Meaning |
+|-----------|---------|
+| U+200B | Binary 0 |
+| U+200C | Binary 1 |
+| U+2060 | Start/End markers |
 
 Example:
 
-```
-Normal text: "Hello World"
-With hidden data: "Hello‌‍World" (contains invisible characters)
-```
+Normal text
+HELLO WORLD
 
-Binary data (01101001) becomes: U+200C U+200B U+200B U+200C U+200B U+200C U+200C U+200B
+Text with hidden data
+The hidden characters are invisible but encode binary data.
 
-4.4 Cryptographic Implementation
+---
 
-Key Derivation:
+# Cryptographic Implementation
 
-```javascript
-// PBKDF2 with 100,000 iterations
-const key = await crypto.subtle.deriveKey(
-  {name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256"},
-  baseKey,
-  {name: "AES-GCM", length: 256},
-  false,
-  ["encrypt", "decrypt"]
-);
-```
+### Key Derivation
 
-Encryption:
+- PBKDF2
+- 100,000 iterations
+- SHA-256 hash
 
-· Algorithm: AES-GCM (authenticated encryption)
-· Key size: 256-bit
-· IV: 12 bytes (random)
-· Authentication tag: 16 bytes (included automatically by GCM)
+### Encryption
 
-Integrity Protection:
+- Algorithm: AES-GCM
+- Key size: 256-bit
+- IV length: 12 bytes
+- Authentication tag: 16 bytes
 
-· SHA-256 hash of compressed plaintext
-· First 8 bytes stored with ciphertext
-· Verified during decryption
+### Integrity Verification
 
-4.5 Dual-Layer Security System
+- SHA-256 checksum of plaintext
+- First 8 bytes stored with encrypted payload
+- Verified during decryption
 
-Real Layer:
+---
 
-· Contains actual secret message
-· Accessed with main password
-· Optional TTL for auto-destruction
+# Dual Layer Security System
 
-Decoy Layer:
+## Real Layer
 
-· Contains harmless fake message
-· Accessed with decoy password
-· Provides plausible deniability under coercion
+- Contains the real secret message
+- Accessed using the main password
+- Optional TTL auto-destruction
 
-Security Benefit: If forced to reveal password, user gives decoy password which reveals harmless message while real secret remains protected.
+## Decoy Layer
 
-5. Novel Features and Improvements
+- Contains harmless fake data
+- Accessed with decoy password
 
-5.1 What's New in v6.0
+This allows **plausible deniability** if a password must be revealed.
 
-Feature Previous Versions v6.0 Improvement
-Platform Desktop applications Browser-based, cross-platform
-Steganography Method Image-based LSB Text-based zero-width characters
-Encryption Basic AES AES-GCM with integrity verification
-Deniability Single layer Dual-layer (real+decoy) system
-Data Lifetime Permanent TTL-based auto-destruction
-Distribution File sharing Copy-paste text or QR codes
+---
 
-5.2 Innovative Features
+# Major Features
 
-1. Browser-Based Cryptography
-   · Uses Web Crypto API (native browser security)
-   · No server involvement
-   · Works offline completely
-2. Social Media Resistant
-   · Zero-width characters survive most platform sanitization
-   · Text appears normal on Facebook, Twitter, WhatsApp
-   · No suspicious file attachments
-3. Visual Security Indicators
-   · Real-time password strength meter
-   · Data embedding efficiency visualization
-   · Hacker-style decryption animation
-   · Matrix background effect
-4. Operational Security Features
-   · Panic mode (double ESC to wipe everything)
-   · Auto-copy to clipboard
-   · No data persistence (runs in memory)
-   · Template system for common cover texts
+### Browser-Based Cryptography
 
-5.3 Technical Innovations
+- Uses the Web Crypto API
+- No server interaction
+- Works offline
 
-1. Compressed Encryption Payload
-   · Data compressed before encryption
-   · Reduces steganographic footprint
-   · Better resistance to detection
-2. Binary-to-Zero-Width Encoding
-   · Efficient 1:1 bit-to-character mapping
-   · No data expansion (unlike Base64)
-   · Platform-compatible encoding
-3. Self-Contained Design
-   · All libraries embedded
-   · No network requests
-   · Under 300KB total size
+### Social Media Resistant
 
-6. Security Analysis
+Zero-width characters often survive text filtering on messaging platforms.
 
-6.1 Strengths
+### Visual Security Indicators
 
-1. End-to-End Encryption
-   · Keys never leave browser
-   · No server trust required
-   · Client-side only processing
-2. Steganographic Security
-   · Zero-width characters invisible to humans
-   · Survives text-based platforms
-   · No statistical anomalies in text
-3. Operational Security
-   · Plausible deniability via decoy layer
-   · TTL-based auto-destruction
-   · Panic wipe functionality
-4. Cryptographic Strength
-   · AES-256 with GCM mode
-   · PBKDF2 with 100k iterations
-   · Integrity verification
+- Password strength meter
+- Hacker-style decryption animation
+- Matrix-style background effect
 
-6.2 Limitations
+### Operational Security
 
-1. Browser Dependency
-   · Requires modern browser with Web Crypto API
-   · JavaScript must be enabled
-   · Mobile browser compatibility varies
-2. Platform Limitations
-   · Some platforms strip zero-width characters
-   · Character limit constraints on some apps
-   · Text-only medium required
-3. Detection Possibilities
-   · Forensic analysis can detect zero-width characters
-   · Unusual character sequences may raise flags
-   · Not resistant to targeted analysis
+- Panic wipe mode
+- Clipboard auto-copy
+- No persistent storage
 
-6.3 Threat Model
+---
 
-Protected Against:
+# Security Analysis
 
-· Casual observation
-· Platform content filters
-· Basic forensic examination
-· Coercion (via decoy layer)
-· Data interception (encrypted)
+## Strengths
 
-Not Protected Against:
+- Client-side encryption
+- Invisible steganographic encoding
+- Dual-layer deniability
+- AES-256 encryption
 
-· Advanced steganalysis
-· Targeted investigation with character analysis
-· Physical access to unlocked device
-· Keylogger malware
+## Limitations
 
-7. Use Cases and Applications
+- Requires modern browsers
+- Some platforms strip invisible characters
+- Advanced forensic analysis may detect hidden data
 
-7.1 Legitimate Uses
+---
 
-1. Journalist-Source Communication
-   · Secure messaging through public platforms
-   · Deniability if messages intercepted
-2. Human Rights Activism
-   · Communication in surveilled regions
-   · Hidden messages in public posts
-3. Corporate Security
-   · Secret sharing of credentials
-   · Secure communication bypassing filters
-4. Personal Privacy
-   · Private notes hidden in plain sight
-   · Secure sharing of sensitive information
+# Threat Model
 
-7.2 Technical Applications
+### Protected Against
 
-1. Digital Watermarking
-   · Embedding ownership information in text
-   · Content authentication
-2. Covert Communication Channels
-   · Backup communication methods
-   · Emergency information sharing
-3. Security Research
-   · Studying steganography methods
-   · Cryptographic implementation testing
+- Casual observation
+- Message interception
+- Basic forensic inspection
+- Platform filtering
 
-8. Comparison with Existing Tools
+### Not Protected Against
 
-Feature StegoVault v6.0 Traditional Tools
-Platform Browser-based Desktop applications
-Portability Single HTML file Installation required
-Steganography Type Text-based Mostly image-based
-Deniability Built-in dual-layer Usually single-layer
-Accessibility Runs anywhere OS-dependent
-Learning Curve User-friendly GUI Command-line often
+- Advanced steganalysis
+- Targeted investigation
+- Compromised devices
 
-Advantages over traditional tools:
+---
 
-· No installation required
-· Cross-platform compatibility
-· Modern cryptographic standards
-· Better user interface
-· Social media compatibility
+# Use Cases
 
-9. Implementation Details for Researchers
+### Journalism
+Secure communication between journalists and sources.
 
-9.1 Code Structure
+### Human Rights Work
+Hidden communication in surveillance environments.
 
-```
-StegoVault v6.0 Architecture:
-├── HTML Structure (UI Layout)
-├── CSS Styling (Cyberpunk Theme)
-├── JavaScript Modules:
-│   ├── App Core
-│   ├── Crypto Module (Web Crypto API)
-│   ├── Stego Module (Zero-width encoding)
-│   ├── UI Controller
-│   ├── Logger System
-│   └── Visual Effects
-└── Embedded Resources
-```
+### Corporate Security
+Secure credential sharing.
 
-9.2 Key Functions
+### Personal Privacy
+Private notes hidden in ordinary text.
 
-1. Stego.embed() - Hides data in text
-2. Stego.extract() - Extracts hidden data
-3. Crypto.encrypt() - Encrypts with AES-GCM
-4. Crypto.decrypt() - Decrypts and verifies
-5. Utils.compress() - Gzip compression
-6. Actions.encrypt() - Full encryption pipeline
-7. Actions.decrypt() - Full decryption pipeline
+---
 
-9.3 Data Flow
+# Comparison With Traditional Tools
 
-```
-Encryption Flow:
-User Input → Compression → Encryption → 
-Zero-width Encoding → Embed in Cover Text → Output
+| Feature | StegoVault | Traditional Tools |
+|-------|-------------|------------------|
+| Platform | Browser | Desktop software |
+| Portability | Single file | Installed program |
+| Steganography | Text-based | Mostly image-based |
+| Deniability | Dual layer | Usually single layer |
 
-Decryption Flow:
-Stego Text → Extract Zero-width → Decode Binary → 
-Decryption → Decompression → Verify Integrity → Output
-```
+---
 
-10. Future Development Directions
+# Future Development
 
-1. Enhanced Steganography
-   · Support for more Unicode hiding methods
-   · Image steganography integration
-   · Audio steganography capabilities
-2. Improved Security
-   · Support for Argon2 key derivation
-   · Post-quantum cryptography options
-   · Better resistance to steganalysis
-3. Additional Features
-   · File attachment support
-   · Network distribution methods
-   · Mobile app version
-   · Plugin architecture
-4. Research Applications
-   · Steganalysis training tool
-   · Cryptographic benchmark platform
-   · Security education resource
+Possible future improvements include:
 
+- Image and audio steganography
+- Post-quantum cryptography
+- Mobile application version
+- Plugin architecture
 
+---
 
-StegoVault 6.0 represents a significant advancement in accessible, secure steganography tools. By leveraging modern web technologies, it brings sophisticated cryptographic and steganographic capabilities to everyday users without requiring technical expertise or software installation.
+# Author
 
-The tool's innovative features—particularly its dual-layer security system, TTL-based auto-destruction, and use of zero-width character encoding—address real-world security needs while maintaining usability. Its browser-based nature makes it uniquely positioned for scenarios where traditional security tools are impractical or unavailable.
-
-For researchers, this implementation provides a valuable case study in client-side cryptography, modern steganography techniques, and usable security design. The open, inspectable codebase serves as both a practical tool and educational resource for understanding how these security technologies work in practice.
-
-The development demonstrates that robust security tools can be both accessible and powerful, bringing enterprise-grade security paradigms to personal use through thoughtful design and implementation of modern web standards.
+**Pankaj Tiwari**
